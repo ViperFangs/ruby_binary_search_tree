@@ -8,7 +8,7 @@ class Tree
 
   def initialize(array)
     @included_data_array = []
-    self.root = build_tree(array)
+    self.root = build_tree(array.sort.uniq)
   end
 
   def build_tree(array, start_index = 0, end_index = (array.length - 1))
@@ -16,14 +16,21 @@ class Tree
 
     mid_index = (start_index + end_index) / 2
 
-    return nil if included_data_array.include? array[mid_index]
+    return nil if @included_data_array.include? array[mid_index]
 
     new_node = Node.new(array[mid_index])
     new_node.left = build_tree(array, start_index, mid_index - 1)
     new_node.right = build_tree(array, mid_index + 1, end_index)
-    @included_data_array.push(new_node.data)
 
     new_node
+  end
+
+  def find(data, root = self.root)
+    return root if root.nil? || root.data == data
+
+    return find(data, root.right) if root.data < data
+
+    find(data, root.left)
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -33,4 +40,7 @@ class Tree
   end
 end
 
-Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9]).pretty_print
+new_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+new_tree.pretty_print
+puts new_tree.find(11)
+
