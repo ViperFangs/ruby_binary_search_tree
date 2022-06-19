@@ -182,12 +182,16 @@ class Tree
     false
   end
 
+  # Depth takes in 2 arguments
+  # The node that the user needs the depth of and start_node which is initalized as root if no other node is given
+  # it returns nil if it cant find the node else calls the depth helper method to find depth of the node
   def depth(node, start_node = root)
-    return 0 unless find(node.data)
+    return nil unless find(node.data)
 
     depth_helper(node, start_node)
   end
 
+  # depth_helper starts from current_node and recursively finds the depth of the specified node
   def depth_helper(node, current_node = root)
     return 0 if node.data == current_node.data
     return 1 + depth_helper(node, current_node.right) if node.data > current_node.data
