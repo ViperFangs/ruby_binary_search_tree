@@ -166,9 +166,7 @@ class Tree
   end
 
   def height(node = root)
-    return 0 if node.nil?
-
-    1 + [height(node.left), height(node.right)].max.to_i
+    node.nil? ? (return 0) : (1 + [height(node.left), height(node.right)].max.to_i)
   end
 
   def balanced?(node = root)
