@@ -166,7 +166,9 @@ class Tree
   end
 
   def height(node = root)
-    node.nil? ? (return 0) : (1 + [height(node.left), height(node.right)].max.to_i)
+    return 0 if node.nil? || (node.right.nil? && node.left.nil?)
+
+    (1 + [height(node.left), height(node.right)].max.to_i)
   end
 
   def balanced?(node = root)
@@ -180,6 +182,18 @@ class Tree
     false
   end
 
+  def depth(node, start_node = root)
+    return 0 unless find(node.data)
+
+    depth_helper(node, start_node)
+  end
+
+  def depth_helper(node, current_node = root)
+    return 0 if node.data == current_node.data
+    return 1 + depth_helper(node, current_node.right) if node.data > current_node.data
+    return 1 + depth_helper(node, current_node.left) if node.data < current_node.data
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -187,7 +201,7 @@ class Tree
   end
 end
 
-new_tree = Tree.new([1, 2, 3, 4, 5, 6, 7])
+new_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
 new_tree.pretty_print
 
 new_tree.insert(10)
@@ -212,3 +226,9 @@ puts new_tree.postorder.to_s
 puts new_tree.height
 
 puts new_tree.balanced?
+
+new_tree.insert(12)
+puts
+puts
+new_tree.pretty_print
+puts new_tree.depth(Node.new(6))
