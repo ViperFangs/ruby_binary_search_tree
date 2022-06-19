@@ -82,6 +82,33 @@ class Tree
     find(data, root.left)
   end
 
+  def level_order
+    return if root.nil?
+
+    queue = []
+    queue.push(root)
+
+    if block_given?
+      until queue.empty?
+        yield current_node = queue.first
+        queue.push(current_node.left) unless current_node.left.nil?
+        queue.push(current_node.right) unless current_node.right.nil?
+        queue.shift
+      end
+
+    else
+      return_queue = []
+      until queue.empty?
+        current_node = queue.first
+        queue.push(current_node.left) unless current_node.left.nil?
+        queue.push(current_node.right) unless current_node.right.nil?
+        return_queue.push(queue.shift.data)
+      end
+
+      return_queue
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -106,3 +133,5 @@ new_tree.delete(5)
 puts
 puts
 new_tree.pretty_print
+
+puts new_tree.level_order.to_s
