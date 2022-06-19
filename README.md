@@ -1,4 +1,4 @@
-# ruby_binary_search_trees
+# binary_search_tree
 
 Created as part of [The Odin Project Curriculum](https://www.theodinproject.com/lessons/663/project_submissions?page=5).
 
