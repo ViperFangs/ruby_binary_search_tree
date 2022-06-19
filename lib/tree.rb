@@ -165,6 +165,12 @@ class Tree
     end
   end
 
+  def height(node = root)
+    return 0 if node.nil?
+
+    1 + [height(node.left), height(node.right)].max.to_i
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -193,3 +199,5 @@ new_tree.pretty_print
 puts new_tree.level_order.to_s
 
 puts new_tree.postorder.to_s
+
+puts new_tree.height
