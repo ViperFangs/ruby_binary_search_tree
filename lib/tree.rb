@@ -15,8 +15,6 @@ class Tree
 
     mid_index = (start_index + end_index) / 2
 
-    return nil if @included_data_array.include? array[mid_index]
-
     new_node = Node.new(array[mid_index])
     new_node.left = build_tree(array, start_index, mid_index - 1)
     new_node.right = build_tree(array, mid_index + 1, end_index)
@@ -39,6 +37,43 @@ class Tree
     root
   end
 
+  def delete(data, root = self.root)
+    return root if root.nil?
+
+    if data < root.data
+      root.left = delete(data, root.left)
+
+    elsif data > root.data
+      root.right = delete(data, root.right)
+
+    else
+      if root.left.nil?
+        temp = root.right
+        root = nil
+        return temp
+
+      elsif root.right.nil?
+        temp = root.left
+        root = nil
+        return temp
+      end
+
+      temp = minimum_left_node(root.right)
+      root.data = temp.data
+      root.right = delete(temp.data, root.right)
+    end
+
+    root
+  end
+
+  def minimum_left_node(node)
+    current_node = node
+
+    current_node = current_node.left until current_node.left.nil?
+
+    current_node
+  end
+
   def find(data, root = self.root)
     return root if root.nil? || root.data == data
 
@@ -58,6 +93,16 @@ new_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
 new_tree.pretty_print
 
 new_tree.insert(10)
+puts
+puts
+new_tree.pretty_print
+
+new_tree.delete(10)
+puts
+puts
+new_tree.pretty_print
+
+new_tree.delete(5)
 puts
 puts
 new_tree.pretty_print
