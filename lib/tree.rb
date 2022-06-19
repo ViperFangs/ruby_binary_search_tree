@@ -109,6 +109,62 @@ class Tree
     end
   end
 
+  def inorder(current_node = root, array = [], &block)
+    if block_given?
+      return if current_node.nil?
+
+      inorder(current_node.left, &block)
+      block.call(current_node)
+      inorder(current_node.right, &block)
+
+    else
+      return [] if current_node.nil?
+
+      inorder(current_node.left, array)
+      array.push current_node.data
+      inorder(current_node.right, array)
+
+      array
+    end
+  end
+
+  def preorder(current_node = root, array = [], &block)
+    if block_given?
+      return if current_node.nil?
+
+      block.call(current_node)
+      preorder(current_node.left, &block)
+      preorder(current_node.right, &block)
+
+    else
+      return [] if current_node.nil?
+
+      array.push current_node.data
+      preorder(current_node.left, array)
+      preorder(current_node.right, array)
+
+      array
+    end
+  end
+
+  def postorder(current_node = root, array = [], &block)
+    if block_given?
+      return if current_node.nil?
+
+      postorder(current_node.left, &block)
+      postorder(current_node.right, &block)
+      block.call(current_node)
+
+    else
+      return [] if current_node.nil?
+
+      postorder(current_node.left, array)
+      postorder(current_node.right, array)
+      array.push current_node.data
+      array
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -135,3 +191,5 @@ puts
 new_tree.pretty_print
 
 puts new_tree.level_order.to_s
+
+puts new_tree.postorder.to_s
