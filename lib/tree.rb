@@ -28,10 +28,9 @@ class Tree
   def insert(data, root = self.root)
     return Node.new(data) if root.nil?
 
-    if root.data == data
-      return root
+    return root if root.data == data
 
-    elsif root.data < data
+    if root.data < data
       root.right = insert(data, root.right)
 
     else
