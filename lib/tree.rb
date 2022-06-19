@@ -7,7 +7,6 @@ class Tree
   attr_accessor :root
 
   def initialize(array)
-    @included_data_array = []
     self.root = build_tree(array.sort.uniq)
   end
 
