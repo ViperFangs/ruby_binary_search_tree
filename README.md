@@ -1,6 +1,6 @@
 # binary_search_tree
 
-Created as part of [The Odin Project Curriculum](https://www.theodinproject.com/lessons/663/project_submissions?page=5).
+Created as part of [The Odin Project Curriculum](https://www.theodinproject.com/lessons/ruby-binary-search-trees).
 
 ## Functionality
 
