@@ -16,8 +16,8 @@ class Tree
     mid_index = (start_index + end_index) / 2
     new_node = Node.new(array[mid_index])
 
-    new_node.right = build_tree(array, start_index, mid_index - 1)
-    new_node.left = build_tree(array, mid_index + 1, end_index)
+    new_node.left = build_tree(array, start_index, mid_index - 1)
+    new_node.right = build_tree(array, mid_index + 1, end_index)
 
     new_node
   end
@@ -29,4 +29,4 @@ class Tree
   end
 end
 
-Tree.new([1, 2, 3, 4]).pretty_print
+Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9]).pretty_print
