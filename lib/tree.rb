@@ -171,17 +171,6 @@ class Tree
     (1 + [height(node.left), height(node.right)].max.to_i)
   end
 
-  def balanced?(node = root)
-    return true if node.nil?
-
-    left_height = height(node.left)
-    right_height = height(node.right)
-
-    return true if (left_height - right_height).abs <= 1 && balanced?(node.left) && balanced?(node.right)
-
-    false
-  end
-
   # Depth takes in 2 arguments
   # The node that the user needs the depth of and start_node which is initalized as root if no other node is given
   # it returns nil if it cant find the node else calls the depth helper method to find depth of the node
@@ -196,6 +185,17 @@ class Tree
     return 0 if node.data == current_node.data
     return 1 + depth_helper(node, current_node.right) if node.data > current_node.data
     return 1 + depth_helper(node, current_node.left) if node.data < current_node.data
+  end
+
+  def balanced?(node = root)
+    return true if node.nil?
+
+    left_height = height(node.left)
+    right_height = height(node.right)
+
+    return true if (left_height - right_height).abs <= 1 && balanced?(node.left) && balanced?(node.right)
+
+    false
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
