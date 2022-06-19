@@ -171,6 +171,17 @@ class Tree
     1 + [height(node.left), height(node.right)].max.to_i
   end
 
+  def balanced?(node = root)
+    return true if node.nil?
+
+    left_height = height(node.left)
+    right_height = height(node.right)
+
+    return true if (left_height - right_height).abs <= 1 && balanced?(node.left) && balanced?(node.right)
+
+    false
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
@@ -178,7 +189,7 @@ class Tree
   end
 end
 
-new_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9])
+new_tree = Tree.new([1, 2, 3, 4, 5, 6, 7])
 new_tree.pretty_print
 
 new_tree.insert(10)
@@ -201,3 +212,5 @@ puts new_tree.level_order.to_s
 puts new_tree.postorder.to_s
 
 puts new_tree.height
+
+puts new_tree.balanced?
