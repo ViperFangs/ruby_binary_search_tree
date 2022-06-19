@@ -10,8 +10,8 @@ class Node
 
   attr_accessor :data, :left, :right
 
-  def initialize
-    self.data = nil
+  def initialize(data = nil)
+    self.data = data
     self.left = nil
     self.right = nil
   end
