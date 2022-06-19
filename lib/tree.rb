@@ -7,6 +7,7 @@ class Tree
   attr_accessor :root
 
   def initialize(array)
+    @included_data_array = []
     self.root = build_tree(array)
   end
 
@@ -14,10 +15,13 @@ class Tree
     return nil if start_index > end_index
 
     mid_index = (start_index + end_index) / 2
-    new_node = Node.new(array[mid_index])
 
+    return nil if included_data_array.include? array[mid_index]
+
+    new_node = Node.new(array[mid_index])
     new_node.left = build_tree(array, start_index, mid_index - 1)
     new_node.right = build_tree(array, mid_index + 1, end_index)
+    @included_data_array.push(new_node.data)
 
     new_node
   end
