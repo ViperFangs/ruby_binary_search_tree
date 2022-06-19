@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # class Node contains data, left and right attributes
 class Node
   include Comparable
